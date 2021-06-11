@@ -1,0 +1,48 @@
+.icon_mastercard {
+    background-image: url(/src/img/payments/payment_mastercard.png);
+    background-size: auto 80%;
+}
+
+.icon_visa {
+    background-image: url(/src/img/payments/payment_visa.png);
+    background-size: auto 80%;
+}
+
+.icon_skinpay {
+    background-image: url(/src/img/payments/payment_skinpay.png);
+}
+
+.icon_qiwi {
+    background-image: url(/src/img/payments/payment_qiwi.png);
+}
+
+.icon_alfabank {
+    background-image: url(/src/img/payments/payment_alfabank.png);
+    background-size: auto 80%;
+}
+
+.icon_bitcoin {
+    background-image: url(/src/img/payments/payment_bitcoin.png);
+    background-size: auto 80%;
+}
+
+.footer-paytype {
+    cursor: default;
+    background-color: #fff;
+    width: 100px;
+    height: 70px;
+    background-size: 85% auto;
+    margin: 2px 1px 0px 1px;
+    background-clip: padding-box;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 5px;
+
+
+}
+
+.footer-payments {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 0fr)
+}

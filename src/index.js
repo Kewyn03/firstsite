@@ -1,13 +1,23 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+
 import App from './App';
+
+import './styles/normalize.css'
+import './styles/styles.css'
+import './index.scss';
+import ThemeProvider from './components/ChangeTheme/context/ThemeProvider'
+
+
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider>
     <App />
-  </React.StrictMode>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
