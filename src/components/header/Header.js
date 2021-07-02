@@ -1,45 +1,62 @@
-import React,{Component} from "react";
+import React, {Component} from "react";
 
-import ChangeTheme from "../ChangeTheme";
-import HeaderIcon from '../../img/HeaderIcon.ico'
+import HeaderIcon from './HeaderIcon.ico'
+import {Link, Switch} from 'react-router-dom'
+import SignedInLinks from './SignedInLinks'
+import SignedOutLinks from './SignedOutLinks'
 
-export default class Header extends Component {
+
+function Header(props) {
 
 
-    render() {
-        return (
-            <component id="Header">
-                <header className="header">
-                    <div className="container-fluid">
+    return (
+        <component id="Header">
+            <header className="header">
+                <div className="container-fluid">
 
-                        <nav className="navbar navbar-expand-sm ">
-                            <ul className="navbar-nav">
-                                <a href="" className="logoHeader">
+                    <nav className=" navbar-expand-sm">
+                        <ul className="navbar-nav">
+                            <li  className="logoHeader">
+                                <Link to='/'>
                                     <img src={HeaderIcon} alt="Site Logo"/>
-                                </a>
-                                <li className="nav-item">
+                                </Link>
+                            </li>
+                            <li className="nav-item navbar-text">
+                                <Link to="items">
                                     <a className="nav-link" href="#">Каталог</a>
-                                </li>
-                                <li className="nav-item">
+                                </Link>
+                            </li>
+                            <li className="nav-item navbar-text">
+                                <Link to="/FAQ">
                                     <a className="nav-link" href="#">Как это работает</a>
-                                </li>
-                                <li className="nav-item">
+                                </Link>
+                            </li>
+                            <li className="nav-item navbar-text">
+                                <Link to="/support">
                                     <a className="nav-link" href="#">Техподдержка</a>
-                                </li>
+                                </Link>
+                            </li>
 
-                            </ul>
+                            <li onClick={props.onClickCart} className="nav-item d-flex align-center mr-10 cu-p">
 
-                        </nav>
-                        <div className="change-theme">
-                            <ChangeTheme />
-                        </div>
-                    </div>
-                </header>
+                                    <img width={18} height={18} src='../../img/cart.svg'/>
 
-            </component>
-        )
+                            </li>
 
-    }
+                            {/*<SignedInLinks />*/}
+                            <SignedOutLinks/>
+
+                        </ul>
+
+                    </nav>
+
+                </div>
+            </header>
+
+        </component>
+    )
+
 
 }
 
+export default Header

@@ -1,0 +1,34 @@
+.cardTitle {
+    background-color: orange;
+
+    padding: 1px;
+    justify-content: center;
+
+
+}
+.mainContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.card {
+    overflow: hidden;
+    display:flex;
+    margin-top:10px;
+    height: 140px;
+    align-content: stretch;
+
+}
+
+.width100 {
+    width: 100px;
+}
+
+.button-add {
+    position: relative;
+
+}
+
+.plus {
+    cursor: pointer;
+}

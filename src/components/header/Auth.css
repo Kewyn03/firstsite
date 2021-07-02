@@ -1,0 +1,186 @@
+
+
+
+
+.wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*button login*/
+
+.button-login {
+  min-width: 150px;
+  min-height: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  color: #313133;
+  text-decoration: none;
+  background: #4fd170;
+  background: linear-gradient(90deg, rgb(21, 205, 30) 0%, rgb(10, 229, 60) 100%);
+  border: none;
+  border-radius: 100px;
+  box-shadow: 8px 8px 15px rgb(19, 160, 42);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 1px;
+}
+
+.button-login::before {
+  content: '';
+  border-radius: 1000px;
+  min-width: calc(150px + 12px);
+  min-height: calc(50px + 12px);
+  border: 3px solid #0ea007;
+  box-shadow: 0 0 60px rgb(55, 51, 51);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .3s ease-in-out 0s;
+  text-decoration: none;
+}
+
+.button-login:hover, .button-login:focus {
+  color: #e00437;
+
+}
+
+.button-login:hover::before, .button-login:focus::before {
+  opacity: 1;
+}
+
+
+.button-login:hover::after, .button-login:focus::after {
+  animation: none;
+  display: none;
+  text-decoration: none;
+}
+
+
+/*button logout*/
+
+
+.button-logout {
+  margin: 14px;
+  min-width: 100px;
+  min-height: 30px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  color: #ca1313;
+  background: #cfb5b5;
+  background: linear-gradient(90deg, rgb(172, 152, 159) 0%, rgb(165, 109, 118) 100%);
+  border: none;
+  border-radius: 100px;
+  box-shadow: 8px 8px 15px rgb(179, 112, 121);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 1px;
+}
+
+.button-logout::before {
+  content: '';
+  border-radius: 1000px;
+  min-width: calc(100px + 12px);
+  min-height: calc(30px + 12px);
+  border: 3px solid #8c0727;
+  box-shadow: 0 0 60px rgb(200, 27, 27);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .3s ease-in-out 0s;
+}
+
+.button-logout:hover, .button-logout:focus {
+  color: #cf1111;
+  background: linear-gradient(90deg, rgb(234, 6, 41) 100%, rgb(241, 5, 41) 100%);
+  transform: translateY(0px);
+}
+
+.button-logout:hover::before, .button-logout:focus::before {
+  opacity: 1;
+}
+
+
+
+.button-logout:hover::after, .button-logout:focus::after {
+  animation: none;
+  display: none;
+}
+
+
+/*button sign up*/
+
+
+.button-signup {
+  min-width: 100px;
+  margin-right: 5px;
+  min-height: 40px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  color: #313133;
+  text-decoration: none;
+  background: #dec219;
+  background: linear-gradient(90deg, rgb(226, 216, 19) 0%, rgb(245, 214, 15) 100%);
+  border: none;
+  border-radius: 100px;
+  box-shadow: 8px 8px 15px rgb(210, 186, 25);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 1px;
+}
+
+.button-signup ::before {
+  content: '';
+  border-radius: 100px;
+  min-width: calc(100px + 12px);
+  min-height: calc(40px + 12px);
+  border: 3px solid #857306;
+  box-shadow: 0 0 30px rgb(55, 51, 51);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .3s ease-in-out 0s;
+
+}
+
+.button-signup :hover, .button-signup :focus {
+
+
+}
+
+.button-signup :hover::before, .button-signup :focus::before {
+  opacity: 1;
+}
+
+
+.button-signup :hover::after, .button-signup :focus::after {
+  animation: none;
+  display: none;
+  text-decoration: none;
+}
+
+

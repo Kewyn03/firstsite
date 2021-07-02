@@ -4,20 +4,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
+import { createStore } from "redux";
 import App from './App';
 
-import './styles/normalize.css'
-import './styles/styles.css'
-import './index.scss';
-import ThemeProvider from './components/ChangeTheme/context/ThemeProvider'
+import './styles/styles.scss'
+import './index.scss'
+import 'macro-css'
+import 'semantic-ui-css/semantic.min.css'
+import { BrowserRouter as Router} from 'react-router-dom'
+import {Provider} from "react-redux";
+import rootReducer from './store/reducers/rootReducer'
 
-
-
+const store = createStore(rootReducer)
 
 ReactDOM.render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>,
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
   document.getElementById('root')
 );
 
