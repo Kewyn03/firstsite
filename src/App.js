@@ -1,25 +1,21 @@
 import React, {Component} from 'react'
-import ReactDom from 'react-dom'
-import { Switch, Route } from 'react-router-dom'
-import {connect} from "react-redux";
-import fire from './fire'
 
-import { getDatabase,set,ref} from 'firebase/database'
+import { Switch, Route } from 'react-router-dom'
+
+import axios from 'axios'
+
 import Drawer from "./components/Drawer";
 import Hero from "./components/hero/Hero"
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
-import {FirebaseDatabaseProvider} from "@react-firebase/database";
+
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
 import './styles.css'
 import './styles/mainContent.css'
 import AppContext from "./components/context";
 
-import Card from "./components/hero/Card";
-import Rarity from "./components/category/Rarity";
-import Quality from "./components/category/Quality";
-import Categories from "./components/category/Categories";
+
 
 
 
@@ -37,30 +33,36 @@ function App () {
 
     React.useEffect(() => {
         async function fetchData() {
-        setIsLoading(true)
-            const cartResponse = await fire.get('/cart.json')
-            const itemsResponse = await fire.get('/arr.json')
+            try {
 
-        setIsLoading(false)
+                const cartResponse = await axios.get('https://60e5c694086f730017a6fdf1.mockapi.io/cart')
+                const itemsResponse = await axios.get('https://60e5c694086f730017a6fdf1.mockapi.io/items')
 
-            setCartItems(cartResponse.data);
-        setItems(itemsResponse.data);
+                setIsLoading(false)
 
+                setCartItems(cartResponse.data);
+                setItems(itemsResponse.data);
+
+            } catch (error) {
+                alert('oshibka zaprosa dannih')
+                console.error(error)
+            }
         }
 
         fetchData();
 
-    },[])
+
+    },[] )
 
     const onAddToCart = async (obj) => {
         try {
-            const findItem = cartItems && cartItems.find((item) => Number(item.parentId) === Number(obj.id));
+            const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id));
             if (findItem ) {
                 setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
-                await fire.delete(`/cart/${findItem.id}`);
+                await axios.delete(`https://60e5c694086f730017a6fdf1.mockapi.io/cart/${findItem.id}`);
             } else {
                 setCartItems((prev) => [...prev, obj]);
-                const { data } = await fire.post('/cart.json', obj);
+                const { data } = await axios.post('https://60e5c694086f730017a6fdf1.mockapi.io/cart', obj);
                 setCartItems((prev) =>
                     prev.map((item) => {
                         if (item.parentId === data.parentId) {
@@ -79,13 +81,26 @@ function App () {
         }
     };
 
+    const onAddToHero = async(obj) => {
+        try {
+
+        } catch(error) {
+            alert('Ошибка добавления товара на сайт')
+            console.error(error)
+        }
+    }
+
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value)
     }
 
     const onRemoveItem=(id) => {
-        fire.delete(`/cart.json/${id}`)
-        setCartItems((prev) => prev.filter(item => item.id !== id))
+        try {
+            axios.delete(`https://60e5c694086f730017a6fdf1.mockapi.io/cart/${id}`)
+            setCartItems((prev) => prev.filter(item => Number(item.id) !== Number(id)))
+        } catch (error) {
+            alert('oshibka pri ydalenii')
+        }
     }
 
     const isItemAdded = (id) => {
@@ -96,17 +111,18 @@ function App () {
 
 
 
+
     return (
 
-        <AppContext.Provider value={{cartItems,items,isItemAdded}}>
+        <AppContext.Provider value={{cartItems,items,isItemAdded,onAddToCart,setCartItems,setCartOpened}}>
             <div className="App">
-                {cartOpened && <Drawer cartItems={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} /> }
+                <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened}/>
                 <Header onClickCart={() => setCartOpened(true)}
                         className="header-content"/>
 
 
                 <Route path='/signup' exact>
-                    <SignUp/>
+                    <SignUp />
                 </Route>
                 <Route path='/signin' exact>
                     <SignIn/>
@@ -121,6 +137,7 @@ function App () {
                           onChangeSearchInput={onChangeSearchInput}
                           onAddToCart={onAddToCart}
                           isLoading={isLoading}
+                          onAddToHero={onAddToHero}
                     />
 
                 </Route>

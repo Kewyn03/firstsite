@@ -9,14 +9,15 @@ function Card({
                   imageURL,
                   price,
                   onPlus,
-                  added = false,
                   loading = false
               }) {
 
     const {isItemAdded} = React.useContext(AppContext)
 
+    const obj = {id, parentId : id, title, imageURL, price}
+
     const onClickPlus = () => {
-        onPlus({id, title, imageURL, price, onPlus})
+        onPlus(obj)
 
     }
 
@@ -24,7 +25,7 @@ function Card({
     return (
         <div className='card mr-5'>
             {
-                loading ? <ContentLoader
+                loading ? ( <ContentLoader
                         speed={2}
                         width={100}
                         height={140}
@@ -38,13 +39,13 @@ function Card({
                         <rect x="-6" y="120" rx="0" ry="0" width="105" height="17"/>
                         <rect x="67" y="87" rx="0" ry="0" width="32" height="27"/>
                         <rect x="163" y="124" rx="0" ry="0" width="0" height="1"/>
-                    </ContentLoader> :
+                    </ContentLoader> ) : (
                     <>
                         <img width={100} height={75} src={imageURL} alt="Skin"/>
 
                         <div className="d-flex justify-between align-center m-5">
 
-                            <span>{price}</span>
+                            <span>{price} $</span>
 
                             <img className="plus" onClick={onClickPlus}
                                  src={isItemAdded(id) ? ' img/btn-checked.svg' : 'img/btn-plus.svg'} alt='button-add'/>
@@ -55,7 +56,7 @@ function Card({
 
                     </>
 
-            }
+                ) }
         </div>
     )
 

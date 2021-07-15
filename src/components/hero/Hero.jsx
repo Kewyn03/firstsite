@@ -1,10 +1,7 @@
-import Rarity from "../category/Rarity";
-import Quality from "../category/Quality";
-import Categories from "../category/Categories";
+
 import Card from "./Card";
 import React from "react";
-import {render} from "@testing-library/react";
-import AppContext from "../context";
+
 
 import '../../styles/mainContent.css'
 
@@ -13,7 +10,7 @@ function Hero({items,searchValue,onAddToCart,onChangeSearchInput,isLoading}) {
     const renderItems=() => {
         const filteredItems = items && items.filter(obj =>obj.title.toLowerCase().includes(searchValue.toLowerCase()))
 
-        return (isLoading ? [...Array(70)] : filteredItems)
+        return (isLoading ? [...Array(20)] : filteredItems)
             .map((obj,index) => (
                 <Card
                     key={index}

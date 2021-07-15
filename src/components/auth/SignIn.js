@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 
+import fire from '../../fire'
+
 import './Auth.css'
 
 export default class SignIn extends Component {
@@ -15,7 +17,7 @@ export default class SignIn extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        fire.post('/login.json',this.state);
     }
     render() {
         return (
