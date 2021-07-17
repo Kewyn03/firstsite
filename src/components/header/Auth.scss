@@ -3,6 +3,7 @@
 
 
 .wrap {
+  content: '';
   width: 100%;
   display: flex;
   align-items: center;
@@ -13,8 +14,10 @@
 /*button login*/
 
 .button-login {
-  min-width: 150px;
-  min-height: 50px;
+
+  min-width: 120px;
+  margin-right: 5px;
+  min-height: 40px;
   font-family: 'Nunito', sans-serif;
   font-size: 20px;
   text-transform: uppercase;
@@ -22,11 +25,11 @@
   font-weight: 600;
   color: #313133;
   text-decoration: none;
-  background: #4fd170;
-  background: linear-gradient(90deg, rgb(21, 205, 30) 0%, rgb(10, 229, 60) 100%);
+  background: #17ea0c;
+  background: linear-gradient(90deg, rgb(57, 233, 17) 0%, rgb(9, 245, 40) 100%);
   border: none;
   border-radius: 100px;
-  box-shadow: 8px 8px 15px rgb(19, 160, 42);
+  box-shadow: 8px 8px 15px rgb(18, 236, 11);
   transition: all 0.3s ease-in-out 0s;
   cursor: pointer;
   outline: none;
@@ -34,37 +37,41 @@
   padding: 1px;
 }
 
-.button-login::before {
+.button-login ::before {
   content: '';
-  border-radius: 1000px;
-  min-width: calc(150px + 12px);
-  min-height: calc(50px + 12px);
-  border: 3px solid #0ea007;
-  box-shadow: 0 0 60px rgb(55, 51, 51);
+  text-decoration: none;
+  border-radius: 100px;
+  min-width: calc(120px + 12px);
+  min-height: calc(40px + 12px);
+  border: 3px solid #2cef09;
+  box-shadow: 0 0 30px rgb(41, 243, 18);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: all .3s ease-in-out 0s;
-  text-decoration: none;
-}
 
-.button-login:hover, .button-login:focus {
-  color: #e00437;
 
 }
 
-.button-login:hover::before, .button-login:focus::before {
+.button-login :hover {
+  color: black;
+
+}
+
+.button-login :hover::before {
   opacity: 1;
+
 }
 
 
-.button-login:hover::after, .button-login:focus::after {
+.button-login :hover::after {
   animation: none;
   display: none;
   text-decoration: none;
 }
+
 
 
 /*button logout*/
@@ -107,19 +114,19 @@
   transition: all .3s ease-in-out 0s;
 }
 
-.button-logout:hover, .button-logout:focus {
+.button-logout:hover {
   color: #cf1111;
   background: linear-gradient(90deg, rgb(234, 6, 41) 100%, rgb(241, 5, 41) 100%);
   transform: translateY(0px);
 }
 
-.button-logout:hover::before, .button-logout:focus::before {
+.button-logout:hover::before{
   opacity: 1;
 }
 
 
 
-.button-logout:hover::after, .button-logout:focus::after {
+.button-logout:hover::after {
   animation: none;
   display: none;
 }
@@ -129,7 +136,8 @@
 
 
 .button-signup {
-  min-width: 100px;
+
+  min-width: 90px;
   margin-right: 5px;
   min-height: 40px;
   font-family: 'Nunito', sans-serif;
@@ -153,11 +161,12 @@
 
 .button-signup ::before {
   content: '';
+  text-decoration: none;
   border-radius: 100px;
-  min-width: calc(100px + 12px);
+  min-width: calc(90px + 12px);
   min-height: calc(40px + 12px);
-  border: 3px solid #857306;
-  box-shadow: 0 0 30px rgb(55, 51, 51);
+  border: 3px solid #e9cc13;
+  box-shadow: 0 0 30px rgb(245, 215, 17);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -165,19 +174,21 @@
   opacity: 0;
   transition: all .3s ease-in-out 0s;
 
-}
-
-.button-signup :hover, .button-signup :focus {
-
 
 }
 
-.button-signup :hover::before, .button-signup :focus::before {
+.button-signup :hover{
+  color: black;
+  text-decoration: none;
+}
+
+.button-signup :hover::before {
   opacity: 1;
+  text-decoration: none;
 }
 
 
-.button-signup :hover::after, .button-signup :focus::after {
+.button-signup :hover::after {
   animation: none;
   display: none;
   text-decoration: none;

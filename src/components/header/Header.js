@@ -1,11 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 
 import HeaderIcon from './HeaderIcon.ico'
-import {Link, Switch} from 'react-router-dom'
-import SignedInLinks from './SignedInLinks'
+import { Link } from 'react-router-dom'
 import SignedOutLinks from './SignedOutLinks'
 
-
+import './Auth.scss'
 function Header(props) {
 
 

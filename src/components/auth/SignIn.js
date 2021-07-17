@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 
-import fire from '../../fire'
+import database from '../../database'
+import {Redirect} from 'react-router-dom'
+import './Auth.scss'
+import { useAuth } from "../context/authcontext";
 
-import './Auth.css'
+
+
 
 export default class SignIn extends Component {
     state = {
         email: '',
         password: ''
     }
+
+
+
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
@@ -17,23 +24,34 @@ export default class SignIn extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        fire.post('/login.json',this.state);
+        database.post('login', this.state).then(res => {
+            this.setState({
+                loggedIn : true
+            })
+        })
+
     }
+
     render() {
-        return (
 
-        <div className="login-page">
-            <div className="form">
+        if (this.state.loggedIn) {
+            return <Redirect to='/'/>
+        }
+            return (
 
-                <form className="login-form" onSubmit={this.handleSubmit}>
-                    <input type="text" id='email' placeholder="username"/>
-                    <input type="password" id='password' placeholder="password"/>
-                    <button>login</button>
-                    <p className="message">Not registered? <Link to="/signup">Create an account</Link></p>
-                </form>
-            </div>
-        </div>
-        )
-    }
+                <div className="login-page">
+                    <div className="form">
+
+                        <form className="login-form" onSubmit={this.handleSubmit}>
+                            <input type="text" id='email' placeholder="username" required="required"/>
+                            <input type="password" id='password' placeholder="password" required="required"/>
+                            <button>login</button>
+                            <p className="message">Not registered? <Link to="/signup">Create an account</Link></p>
+                        </form>
+                    </div>
+                </div>
+            )
+        }
+
 }
 

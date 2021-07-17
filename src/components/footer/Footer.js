@@ -2,8 +2,8 @@ import React, {Component} from "react";
 
 import HeaderIcon from '../header/HeaderIcon.ico'
 import {Link} from 'react-router-dom'
-import '../../styles/payments.css'
-import '../../styles.css'
+import '../../styles/payments.scss'
+import '../../styles.scss'
 
 export default class Footer extends Component {
 

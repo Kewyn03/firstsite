@@ -7,7 +7,7 @@
 .header {
     width: 100%;
     padding: 10px;
-    background-image: url("/components/header/header_bg.png");
+    background-image: url("../components/header/header_bg.png");
     vertical-align: middle;
     display: grid;
     grid-template-rows: repeat(1,100%);
@@ -19,11 +19,47 @@
 }
 
 .greenButton {
-    position: absolute;
+    margin-top: 10px;
+    position: relative;
     justify-content: center;
+
     bottom: 0;
-    width: 85%;
-    height: 60px;
+    width: 100%;
+
+    padding: 20px;
+    background: #9dd558;
+    border-radius: 18px;
+    border: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.1s ease-in-out;
+    margin-bottom: 10px;
+
+    &:disabled {
+        background-color: #bebebe !important;
+        cursor: default;
+    }
+
+    &:hover {
+        background: lighten(#9dd558, 5%);
+    }
+
+    &:active {
+        background: darken(#9dd558, 5%);
+    }
+}
+
+.greenButtonBack {
+    margin-top: 10px;
+    position: relative;
+    justify-content: center;
+
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+
     background: #9dd558;
     border-radius: 18px;
     border: 0;
@@ -51,34 +87,36 @@
 .cartTotalBlock {
     width: 100%;
 
-    display: flex;
+
     align-items: center;
     justify-content: center;
 
-    border:  10px dashed red;
-
-    ul {
-        display: block;
 
 
+    border: 10px dashed red;
 
-        li {
-            display: flex;
-            list-style-type:none;
+    div {
+        display: flex;
+
+        ul {
+            display: block;
 
 
-
-            span, b{
-                font-size: 20px;
+            li {
                 display: flex;
+                list-style-type: none;
 
 
+                span, b {
+                    font-size: 20px;
+                    display: flex;
 
+
+                }
             }
         }
     }
 }
-
 
 
 img {
@@ -101,7 +139,7 @@ img {
     font-size: 16px;
     line-height: 1;
     text-decoration: none;
-    color: #d4d6d4;
+    color: black;
     transition: color 0.3s ease-in-out;
 }
 
@@ -230,13 +268,13 @@ img {
 
 .logoHeader {
     width: 60px;
-    length: 60px;
+    height: 20px;
 }
 
 .logoFooter {
 
     width: 20px;
-    length: 20px;
+    height: 20px;
 }
 
 

@@ -1,16 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Auth.css'
+import './Auth.scss'
 
-const SignedOutLinks = () => {
-    return (
-        <span className='right'>
+
+function SignLinks({
+                       loggedIn,login,logout,signin
+                   }) {
+
+
+    return true ? (
+        <span className=''>
             <ul className="navbar-nav">
-                <li className='button-signup wrap'><Link to='/signup' className='nav-link'>Sign up</Link></li>
-                <li className='button-login wrap'><Link to='/signin' className='nav-link'>Login</Link></li>
+                <button className='button-signup wrap' onClick={signin}><Link to='/signup' className='link'>Sign up</Link></button>
+                <button className='button-login wrap' onClick={login}><Link to='/signin' className='link'>Login</Link></button>
+            </ul>
+            </span>
+    ) : (
+        <span className='right'>
+            <ul className=" navbar-nav align-items-baseline ">
+                <button className='button-logout wrap ' onClick={() => logout}><Link to='/' className='link'>Log Out</Link></button>
+
+
+                {/*<li><NavLink to='/' className=""></NavLink></li>*/}
             </ul>
         </span>
     )
 }
 
-export default SignedOutLinks
+
+export default SignLinks

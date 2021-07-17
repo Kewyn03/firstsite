@@ -1,7 +1,8 @@
 import React from 'react'
 import ContentLoader from "react-content-loader";
-import '../../styles/mainContent.css'
-import AppContext from "../context";
+import '../../styles/mainContent.scss'
+import AppContext from "../context/context";
+import AddCard from "./AddCard";
 
 function Card({
                   id,
@@ -40,7 +41,11 @@ function Card({
                         <rect x="67" y="87" rx="0" ry="0" width="32" height="27"/>
                         <rect x="163" y="124" rx="0" ry="0" width="0" height="1"/>
                     </ContentLoader> ) : (
-                    <>
+                        <>
+
+
+                    <div>
+
                         <img width={100} height={75} src={imageURL} alt="Skin"/>
 
                         <div className="d-flex justify-between align-center m-5">
@@ -54,9 +59,12 @@ function Card({
                         </div>
                         <span className='cardTitle'>{title}</span>
 
+                    </div>
+
                     </>
 
                 ) }
+
         </div>
     )
 

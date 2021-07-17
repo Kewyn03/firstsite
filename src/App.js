@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-import { Switch, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-import axios from 'axios'
+import database from './database'
 
 import Drawer from "./components/Drawer";
 import Hero from "./components/hero/Hero"
@@ -11,11 +11,10 @@ import Footer from './components/footer/Footer'
 
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
-import './styles.css'
-import './styles/mainContent.css'
-import AppContext from "./components/context";
-
-
+import './styles.scss'
+import './styles/mainContent.scss'
+import AppContext from "./components/context/context";
+import { AuthProvider } from "./components/context/authcontext";
 
 
 
@@ -35,8 +34,8 @@ function App () {
         async function fetchData() {
             try {
 
-                const cartResponse = await axios.get('https://60e5c694086f730017a6fdf1.mockapi.io/cart')
-                const itemsResponse = await axios.get('https://60e5c694086f730017a6fdf1.mockapi.io/items')
+                const cartResponse = await database.get('cart')
+                const itemsResponse = await database.get('items')
 
                 setIsLoading(false)
 
@@ -44,7 +43,7 @@ function App () {
                 setItems(itemsResponse.data);
 
             } catch (error) {
-                alert('oshibka zaprosa dannih')
+                alert('Error! Data no received!')
                 console.error(error)
             }
         }
@@ -59,10 +58,10 @@ function App () {
             const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id));
             if (findItem ) {
                 setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
-                await axios.delete(`https://60e5c694086f730017a6fdf1.mockapi.io/cart/${findItem.id}`);
+                await database.delete(`cart/${findItem.id}`);
             } else {
                 setCartItems((prev) => [...prev, obj]);
-                const { data } = await axios.post('https://60e5c694086f730017a6fdf1.mockapi.io/cart', obj);
+                const { data } = await database.post('cart', obj);
                 setCartItems((prev) =>
                     prev.map((item) => {
                         if (item.parentId === data.parentId) {
@@ -76,7 +75,7 @@ function App () {
                 );
             }
         } catch (error) {
-            alert('Ошибка при добавлении в корзину');
+            alert('Error! Item no added to cart!');
             console.error(error);
         }
     };
@@ -85,7 +84,7 @@ function App () {
         try {
 
         } catch(error) {
-            alert('Ошибка добавления товара на сайт')
+            alert('Error! Item not added to site!')
             console.error(error)
         }
     }
@@ -96,10 +95,10 @@ function App () {
 
     const onRemoveItem=(id) => {
         try {
-            axios.delete(`https://60e5c694086f730017a6fdf1.mockapi.io/cart/${id}`)
+            database.delete(`cart/${id}`)
             setCartItems((prev) => prev.filter(item => Number(item.id) !== Number(id)))
         } catch (error) {
-            alert('oshibka pri ydalenii')
+            alert('Error! Item not deleted!')
         }
     }
 
@@ -112,8 +111,10 @@ function App () {
 
 
 
-    return (
 
+
+    return (
+    <AuthProvider>
         <AppContext.Provider value={{cartItems,items,isItemAdded,onAddToCart,setCartItems,setCartOpened}}>
             <div className="App">
                 <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened}/>
@@ -121,12 +122,13 @@ function App () {
                         className="header-content"/>
 
 
-                <Route path='/signup' exact>
+                <Route path='/signup' exact component={SignUp}>
                     <SignUp />
                 </Route>
-                <Route path='/signin' exact>
+                <Route path='/signin' exact component={SignIn}>
                     <SignIn/>
                 </Route>
+
 
 
                 <Route path="/" exact>
@@ -138,6 +140,7 @@ function App () {
                           onAddToCart={onAddToCart}
                           isLoading={isLoading}
                           onAddToHero={onAddToHero}
+
                     />
 
                 </Route>
@@ -147,7 +150,7 @@ function App () {
             </div>
 
         </AppContext.Provider>
-
+    </AuthProvider>
 
 
 

@@ -1,17 +1,19 @@
-
 import Card from "./Card";
 import React from "react";
 
 
-import '../../styles/mainContent.css'
+import '../../styles/mainContent.scss'
+import AddCard from "./AddCard";
 
-function Hero({items,searchValue,onAddToCart,onChangeSearchInput,isLoading}) {
+function Hero({items, searchValue, onAddToCart, onChangeSearchInput, isLoading, loggedIn}) {
 
-    const renderItems=() => {
-        const filteredItems = items && items.filter(obj =>obj.title.toLowerCase().includes(searchValue.toLowerCase()))
+
+
+    const renderItems = () => {
+        const filteredItems = items && items.filter(obj => obj.title.toLowerCase().includes(searchValue.toLowerCase()))
 
         return (isLoading ? [...Array(20)] : filteredItems)
-            .map((obj,index) => (
+            .map((obj, index) => (
                 <Card
                     key={index}
 
@@ -21,14 +23,43 @@ function Hero({items,searchValue,onAddToCart,onChangeSearchInput,isLoading}) {
                 />
             ))
     }
-    return(
-        <span className="main-content">
+    return (
+        <>
+            {loggedIn ? (
+
+                <span className="main-content">
                         <div className="search-column d-flex p-20 m-10 float-left">
 
+                                    {console.log(loggedIn)}
+
+                            <div className="ui action input"><input onChange={onChangeSearchInput}
+                                                                    value={searchValue} type="text"
+                                                                    placeholder="Search..."/>
+                                    <button className="ui icon button"><i aria-hidden="true"
+                                                                          className="search icon"/></button>
+                                </div>
 
 
-                                <div className="ui action input"><input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Search..."/>
-                                    <button className="ui icon button"><i aria-hidden="true" className="search icon"/></button>
+                        </div>
+
+                        <div className="mainContent  d-flex m-20">
+
+                                {AddCard}
+                            {renderItems()}
+
+
+                        </div>
+                    </span>
+            ) : (<span className="main-content">
+                        <div className="search-column d-flex p-20 m-10 float-left">
+
+                            {console.log(loggedIn)}
+
+                            <div className="ui action input"><input onChange={onChangeSearchInput}
+                                                                    value={searchValue} type="text"
+                                                                    placeholder="Search..."/>
+                                    <button className="ui icon button"><i aria-hidden="true"
+                                                                          className="search icon"/></button>
                                 </div>
 
 
@@ -41,9 +72,12 @@ function Hero({items,searchValue,onAddToCart,onChangeSearchInput,isLoading}) {
 
 
                         </div>
-                    </span>
+                    </span>)
 
+            }
+        </>
     )
 }
+
 
 export default Hero
