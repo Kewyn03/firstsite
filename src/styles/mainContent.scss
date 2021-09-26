@@ -1,11 +1,32 @@
 .cardTitle {
     background-color: orange;
-
-    padding: 1px;
+    display: flex;
+    padding:3px;
     justify-content: center;
+    font-size: 18px;
 
 
 }
+
+.link {
+
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 1;
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease-in-out;
+}
+
+.link:hover {
+    color:black;
+}
+
+.main-content {
+
+
+}
+
 .mainContent {
     display: flex;
     flex-direction: row;
@@ -17,6 +38,25 @@
     margin-top:10px;
     height: 140px;
     align-content: stretch;
+
+}
+
+.hello:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.hello {
+
+    overflow: scroll;
+    text-align: center;
+    .helloMessage {
+        font-size: 50px;
+        color: #0638ee;
+        vertical-align: middle;
+
+    }
 
 }
 

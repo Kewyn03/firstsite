@@ -7,13 +7,14 @@ import styles from './Drawer.module.scss'
 import '../styles/styles.scss'
 
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
 function Drawer({onClose, onRemove, items = [], opened}) {
     const {cartItems, setCartItems} = React.useContext(AppContext)
     const [isOrderComplete, setIsOrderComplete] = React.useState(false)
     const [orderId, setOrderId] = React.useState(null)
+    // eslint-disable-next-line no-unused-vars
     const [isLoading, setIsLoading] = React.useState(false);
     const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 

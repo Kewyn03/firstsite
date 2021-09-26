@@ -1,57 +1,60 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
-
-import database from '../../database'
-import {Redirect} from 'react-router-dom'
+import React from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import './Auth.scss'
 import { useAuth } from "../context/authcontext";
 
 
+export default function SignIn() {
+
+    const [state,setState] = React.useState({
+        login: '',
+        password: '',
+    })
+
+    const {login} = useAuth()
+    const {loggedIn} = useAuth()
 
 
-export default class SignIn extends Component {
-    state = {
-        email: '',
-        password: ''
-    }
+    const handleChange = (e) => {
 
-
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
+        setState({
+            ...state,
+            [e.target.id]: e.target.value,
         })
     }
-    handleSubmit = (e) => {
-        e.preventDefault();
-        database.post('login', this.state).then(res => {
-            this.setState({
-                loggedIn : true
-            })
-        })
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        login(state)
+
+
+
+        // isAdmin(state)
 
     }
 
-    render() {
-
-        if (this.state.loggedIn) {
-            return <Redirect to='/'/>
+        if (loggedIn) {
+            return <Redirect to='/' />
         }
+        else {
             return (
 
                 <div className="login-page">
                     <div className="form">
 
-                        <form className="login-form" onSubmit={this.handleSubmit}>
-                            <input type="text" id='email' placeholder="username" required="required"/>
-                            <input type="password" id='password' placeholder="password" required="required"/>
-                            <button>login</button>
+                        <form className="login-form">
+                            <input type="text" id='login' placeholder="login" onChange={handleChange}
+                                   required="required"/>
+                            <input type="password" id='password' placeholder="password" onChange={handleChange}
+                                   required="required"/>
+                            <button onClick={handleSubmit}>login</button>
                             <p className="message">Not registered? <Link to="/signup">Create an account</Link></p>
                         </form>
                     </div>
                 </div>
             )
         }
+
 
 }
 

@@ -1,51 +1,54 @@
 import React from 'react'
 import '../../styles/mainContent.scss'
 
+import database from "../../database";
 
 
 function AddCard({
-                  id,
-                  title,
-                  imageURL,
-                  price,
-                  loggedIn,
-                  isAdmin,
+                     // id,
+                     // title,
+                     // imageURL,
+                     // price,
 
-              }) {
+                     setItems,
+
+                     // isAdmin,
+
+                 }) {
 
 
-    const obj = {id, parentId : id, title, imageURL, price}
+    // const obj = {id, parentId : id, title, imageURL, price}
 
-    const createItem = () => {
-        try {
 
-        }
-        catch (error) {
-            alert('Error! Item not created!')
-        }
+    const createItem = async () => {
+
+            try {
+                const getItems = await database.get('items')
+                if (getItems.data.id < getItems) {
+                    let newItem;
+                    await database.post('items', newItem)
+                }
+            } catch (error) {
+                alert('Error! Item not created!')
+            }
+
+
+
     }
 
+    return (
+    <div className='card mr-5'>
 
-    return (true) ? (
-        <div className='card mr-5'>
+        <img width={100} height={75} src='img/btn-plus.svg' alt="Skin"/>
 
-                        <img width={100} height={75} src='img/btn-plus.svg' alt="Skin"/>
+        <div className="d-flex justify-between align-center m-5">
 
-                        <div className="d-flex justify-between align-center m-5">
-
-                            <div>123123123</div>
-                            <img className="plus" onClick={createItem}/>
-
-
-                        </div>
-
-
-                ) }
+            <img className="plus" onClick={createItem} alt='plus img'/>
         </div>
-    ) : (
-        console.log('not logged in')
-    )
 
+    </div>
+
+    )
 }
 
 export default AddCard

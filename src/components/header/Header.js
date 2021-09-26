@@ -2,15 +2,21 @@ import React from "react";
 
 import HeaderIcon from './HeaderIcon.ico'
 import { Link } from 'react-router-dom'
-import SignedOutLinks from './SignedOutLinks'
-
+import SignLinks from './SignedOutLinks'
+import {useAuth } from '../context/authcontext'
 import './Auth.scss'
+import { render } from "@testing-library/react";
+
+
+
+
 function Header(props) {
 
+    const {loggedIn} = useAuth()
 
     return (
-        <component id="Header">
-            <header className="header">
+            <>
+            <span className="header">
                 <div className="container-fluid">
 
                     <nav className=" navbar-expand-sm">
@@ -21,38 +27,37 @@ function Header(props) {
                                 </Link>
                             </li>
                             <li className="nav-item navbar-text">
-                                <Link to="items">
-                                    <a className="nav-link" href="#">Каталог</a>
-                                </Link>
+                                <Link className="nav-link" to="items">Каталог</Link>
                             </li>
                             <li className="nav-item navbar-text">
-                                <Link to="/FAQ">
-                                    <a className="nav-link" href="#">Как это работает</a>
-                                </Link>
+                                <Link className="nav-link" to="/FAQ">Как это работает</Link>
                             </li>
                             <li className="nav-item navbar-text">
-                                <Link to="/support">
-                                    <a className="nav-link" href="#">Техподдержка</a>
-                                </Link>
+                                <Link className="nav-link" to="/support">Техподдержка</Link>
                             </li>
 
-                            <li onClick={props.onClickCart} className="nav-item d-flex align-center mr-10 cu-p">
 
-                                    <img width={18} height={18} src='../../img/cart.svg'/>
+
+                            <li onClick={props.onClickCart} className="nav-item d-flex align-center ml-10 mr-10 cu-p ">
+
+                                    <img width={18} height={18} src='../../img/cart.svg' alt='cart'/>
 
                             </li>
+                            <li>
+                                 {loggedIn ? (<li className="user-name-header"> Hello {localStorage.getItem('login')} </li>) : ('Sign Up or Sign In')}
+                            </li>
 
-                            {/*<SignedInLinks />*/}
-                            <SignedOutLinks/>
 
+                            <SignLinks />
                         </ul>
+
 
                     </nav>
 
                 </div>
-            </header>
+            </span>
 
-        </component>
+            </>
     )
 
 

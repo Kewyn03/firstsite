@@ -1,27 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Auth.scss'
+import { useAuth } from "../context/authcontext";
 
 
-function SignLinks({
-                       loggedIn,login,logout,signin
-                   }) {
+function SignLinks() {
 
+    const {loggedIn} = useAuth()
+    const {logout} = useAuth()
 
-    return true ? (
-        <span className=''>
-            <ul className="navbar-nav">
-                <button className='button-signup wrap' onClick={signin}><Link to='/signup' className='link'>Sign up</Link></button>
-                <button className='button-login wrap' onClick={login}><Link to='/signin' className='link'>Login</Link></button>
-            </ul>
-            </span>
-    ) : (
+    return (loggedIn) ? (
+
         <span className='right'>
             <ul className=" navbar-nav align-items-baseline ">
-                <button className='button-logout wrap ' onClick={() => logout}><Link to='/' className='link'>Log Out</Link></button>
+                <button className='button-logout wrap' onClick={logout}><Link to='/' className='link'>Log Out</Link></button>
 
+            </ul>
+        </span>
 
-                {/*<li><NavLink to='/' className=""></NavLink></li>*/}
+    ) : (
+        <span className='right'>
+            <ul className="navbar-nav">
+                <button className='button-signup wrap'><Link to='/signup' className='link'>Sign up</Link></button>
+                <button className='button-login wrap'><Link to='/signin' className='link'>Login</Link></button>
+
             </ul>
         </span>
     )

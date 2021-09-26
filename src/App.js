@@ -1,33 +1,33 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
-import { Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import database from './database'
-
+import { useResource } from "./components/hero/resource";
 import Drawer from "./components/Drawer";
 import Hero from "./components/hero/Hero"
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
-
+import HelloPage from './components/hero/helloPage'
 import SignIn from './components/auth/SignIn'
 import SignUp from './components/auth/SignUp'
+
 import './styles.scss'
 import './styles/mainContent.scss'
 import AppContext from "./components/context/context";
 import { AuthProvider } from "./components/context/authcontext";
+import ItemPage from "./components/hero/ItemPage";
 
 
+function App() {
 
-function App () {
-
-
-
-    const [items,setItems] = React.useState([])
-    const [searchValue,setSearchValue] = React.useState('')
-    const [cartItems,setCartItems] = React.useState([])
-    const [cartOpened,setCartOpened] =React.useState(false)
-    const [isLoading,setIsLoading] =React.useState(true)
-
+    const resource = useResource()
+    const [items, setItems] = React.useState([])
+    const [searchValue, setSearchValue] = React.useState('')
+    const [cartItems, setCartItems] = React.useState([])
+    const [cartOpened, setCartOpened] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
+    const [ourItem, setOurItems] = React.useState([])
 
 
     React.useEffect(() => {
@@ -51,17 +51,19 @@ function App () {
         fetchData();
 
 
-    },[] )
+    }, [])
+
 
     const onAddToCart = async (obj) => {
         try {
             const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id));
-            if (findItem ) {
+            if (findItem) {
                 setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
                 await database.delete(`cart/${findItem.id}`);
             } else {
                 setCartItems((prev) => [...prev, obj]);
-                const { data } = await database.post('cart', obj);
+                const {data} = await database.post('cart', obj);
+
                 setCartItems((prev) =>
                     prev.map((item) => {
                         if (item.parentId === data.parentId) {
@@ -80,20 +82,12 @@ function App () {
         }
     };
 
-    const onAddToHero = async(obj) => {
-        try {
-
-        } catch(error) {
-            alert('Error! Item not added to site!')
-            console.error(error)
-        }
-    }
 
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value)
     }
 
-    const onRemoveItem=(id) => {
+    const onRemoveItem = (id) => {
         try {
             database.delete(`cart/${id}`)
             setCartItems((prev) => prev.filter(item => Number(item.id) !== Number(id)))
@@ -103,56 +97,72 @@ function App () {
     }
 
     const isItemAdded = (id) => {
-       return  cartItems.some((item) => Number(item.parentId) === Number(id))
+        return cartItems.some((item) => Number(item.parentId) === Number(id))
 
 
     }
 
 
-
-
-
-
     return (
-    <AuthProvider>
-        <AppContext.Provider value={{cartItems,items,isItemAdded,onAddToCart,setCartItems,setCartOpened}}>
-            <div className="App">
-                <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened}/>
-                <Header onClickCart={() => setCartOpened(true)}
-                        className="header-content"/>
-
-
-                <Route path='/signup' exact component={SignUp}>
-                    <SignUp />
-                </Route>
-                <Route path='/signin' exact component={SignIn}>
-                    <SignIn/>
-                </Route>
+        <BrowserRouter>
+            <AuthProvider>
+                <AppContext.Provider value={{cartItems, items, isItemAdded, onAddToCart, setCartItems, setCartOpened}}>
 
 
 
-                <Route path="/" exact>
-                    <Hero items={items}
-                          cartItems={cartItems}
-                          searchValue={searchValue}
-                          setSearchValue={setSearchValue}
-                          onChangeSearchInput={onChangeSearchInput}
-                          onAddToCart={onAddToCart}
-                          isLoading={isLoading}
-                          onAddToHero={onAddToHero}
-
-                    />
-
-                </Route>
-
-                <Footer className="footer-content"/>
-
-            </div>
-
-        </AppContext.Provider>
-    </AuthProvider>
+                        <div className="App">
+                            <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}
+                                    opened={cartOpened}/>
+                            <Header onClickCart={() => setCartOpened(true)}
+                                    className="header-content"/>
 
 
+                            <Route path='/signup' exact render={() => <SignUp/>}>
+
+                                <SignUp/>
+                            </Route>
+                            <Route path='/signin' exact render={() => <SignIn/>}>;
+
+                                <SignIn/>
+
+                            </Route>
+
+                            {/*component={SignIn }*/}
+
+
+                            <Route path='/items/:id' exact>
+                                <Suspense fallback={<p>Loading...</p>}>
+                                    <ItemPage resource={resource}/>
+                                </Suspense>
+                            </Route>
+
+                            <Route path='/' exact>
+                                <HelloPage/>
+                            </Route>
+
+                            <Route path="/items" exact>
+                                <Hero items={items}
+                                      cartItems={cartItems}
+                                      searchValue={searchValue}
+                                      setSearchValue={setSearchValue}
+                                      onChangeSearchInput={onChangeSearchInput}
+                                      onAddToCart={onAddToCart}
+                                      isLoading={isLoading}
+
+
+                                />
+
+                            </Route>
+
+                            <Footer className="footer-content"/>
+
+                        </div>
+
+                </AppContext.Provider>
+            </AuthProvider>
+
+
+        </BrowserRouter>
 
 
     );

@@ -2,7 +2,6 @@ import React from 'react'
 import ContentLoader from "react-content-loader";
 import '../../styles/mainContent.scss'
 import AppContext from "../context/context";
-import AddCard from "./AddCard";
 
 function Card({
                   id,
@@ -10,10 +9,12 @@ function Card({
                   imageURL,
                   price,
                   onPlus,
-                  loading = false
+                  loading = false,
+
               }) {
 
     const {isItemAdded} = React.useContext(AppContext)
+
 
     const obj = {id, parentId : id, title, imageURL, price}
 
@@ -24,7 +25,11 @@ function Card({
 
 
     return (
+
+
+
         <div className='card mr-5'>
+
             {
                 loading ? ( <ContentLoader
                         speed={2}
@@ -41,7 +46,8 @@ function Card({
                         <rect x="67" y="87" rx="0" ry="0" width="32" height="27"/>
                         <rect x="163" y="124" rx="0" ry="0" width="0" height="1"/>
                     </ContentLoader> ) : (
-                        <>
+
+                <>
 
 
                     <div>
@@ -61,11 +67,13 @@ function Card({
 
                     </div>
 
+
                     </>
 
                 ) }
 
         </div>
+
     )
 
 }
